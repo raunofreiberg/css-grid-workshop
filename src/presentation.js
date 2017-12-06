@@ -75,15 +75,84 @@ const gridBasicCss = `
 
 `;
 
+const uglyHtmlExample = `
+<div class="container">
+  <div class="row">
+    <nav class="col-md-3">
+      ...
+    </nav>
+    <div class="col-md-9">
+      <header class="row">
+        <div class="col-md-12">
+          ...
+        </div>
+      </header>
+      <div class="row">
+        <main class="col-md-8">
+          ...
+        </main>
+        <aside class="col-md-4">
+          ...
+        </aside>
+      </div>
+      <div class="row">
+        <footer class="col-md-12">
+          ...
+        </footer>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+const uglyHtmlResponsiveExample = `
+<div class="container">
+  <div class="row">
+    <nav class="col-md-3 col-xs-12">
+      ...
+    </nav>
+    <div class="col-md-9 col-xs-12">
+      <div class="row">
+        <header class="col-md-12">
+          ...
+        </header>
+      </div>
+      <div class="row">
+        <main class="col-md-8 col-xs-12">
+          ...
+        </main>
+        <aside class="col-md-4 col-xs-12">
+          ...
+        </aside>
+      </div>
+      <div class="row">
+        <footer class="col-md-12">
+          ...
+        </footer>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+const cssGridMarkupExample = `
+<section class="gridContainer">
+    <header>...</header>
+    <nav>...</nav>
+    <main>...</main>
+    <aside>...</aside>
+    <footer>...</footer>
+</section>
+`;
+
+
 export default class extends Component {
     render() {
         return (
             <Deck theme={theme} transition={["slide", "fade"]}>
-                <Slide
-                    bgImage="https://images.unsplash.com/photo-1454165205744-3b78555e5572?auto=format&fit=crop&w=1350&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
-                    bgDarken="0.75">
-                    <Heading size={1} textColor="secondary">
-                        <span style={{color: "#00E5BC", paddingRight: '26px'}}>
+                <Slide>
+                    <Heading size={1} textColor="secondary" style={{ fontWeight: 300 }}>
+                        <span style={{ color: "#00E5BC", paddingRight: '26px', fontWeight: 'bold' }}>
                             CSS
                         </span>
                         Grid
@@ -92,7 +161,7 @@ export default class extends Component {
                 </Slide>
                 <Slide>
                     <Heading size={1} lineHeight={1} textColor="tertiary">
-                        Okay, what?
+                        What?
                     </Heading>
                     <Appear>
                         <Text textColor="secondary" padding="32px 0 0">
@@ -103,8 +172,28 @@ export default class extends Component {
                 </Slide>
                 <Slide>
                     <Heading size={1} lineHeight={1} textColor="tertiary">
-                        Why is this game-changing?
+                        Why?
                     </Heading>
+                    <Text size={6} textColor="secondary" padding="32px 0 0">
+                        CSS has gone through multiple hacks in terms of what to use for layouts. We have had:
+                    </Text>
+                    <List>
+                        <Appear>
+                            <ListItem>Tables</ListItem>
+                        </Appear>
+                        <Appear>
+                            <ListItem>Floats</ListItem>
+                        </Appear>
+                        <Appear>
+                            <ListItem>Position</ListItem>
+                        </Appear>
+                        <Appear>
+                            <ListItem>Finally, we got flex</ListItem>
+                        </Appear>
+                        <Appear>
+                            <ListItem>Now, we have CSS grid</ListItem>
+                        </Appear>
+                    </List>
                 </Slide>
                 <Slide>
                     <List>
@@ -116,6 +205,11 @@ export default class extends Component {
                     </List>
                 </Slide>
                 <Slide>
+                    <Heading size={1} lineHeight={1} textColor="tertiary">
+                        How?
+                    </Heading>
+                </Slide>
+                <Slide>
                     <Heading size={1} fit lineHeight={1}>
                         Think for a moment - how would you create this layout?
                     </Heading>
@@ -123,24 +217,31 @@ export default class extends Component {
                         <header>Header</header>
                         <nav>Nav</nav>
                         <main>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </p>
-                            <br />
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </p>
-                            <br />
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </p>
+                            Main
                         </main>
                         <aside>Aside</aside>
                         <footer>Footer</footer>
                     </section>
+                </Slide>
+                <Slide>
+                    <Heading size={1} fit lineHeight={1}>
+                        Probably something along the lines of...
+                    </Heading>
+                    <CodePane lang="html" source={uglyHtmlExample} margin="64px 0 0"/>
+                </Slide>
+                <Slide>
+                    <Heading size={1} fit lineHeight={1}>
+                        Don't forget about responsive...
+                    </Heading>
+                    <CodePane lang="html" source={uglyHtmlResponsiveExample} margin="64px 0 0"/>
+                </Slide>
+                <Slide>
+                    <Heading size={1} fit lineHeight={1}>
+                        With CSS grid...
+                    </Heading>
+                    <Appear>
+                        <CodePane lang="html" source={cssGridMarkupExample} margin="64px 0 0"/>
+                    </Appear>
                 </Slide>
             </Deck>
         );
