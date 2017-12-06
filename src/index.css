@@ -8,12 +8,12 @@ body {
   display: grid;
   width: 100%;
   height: 500px;
-  grid-template-areas: "nav head head" "nav main aside" "nav footer footer";
+  grid-template-areas: "nav header header" "nav main aside" "nav footer footer";
   grid-template-rows: 0.3fr 1fr 0.3fr;
   grid-template-columns: 0.3fr 1fr 0.3fr;
   box-shadow: 10px 10px 90px rgba(0, 0, 0, 0.19); }
   .gridContainer > header {
-    grid-area: head; }
+    grid-area: header; }
   .gridContainer > nav {
     grid-area: nav;
     background-color: #6f6f6f; }
@@ -31,5 +31,35 @@ body {
   .gridContainer > footer {
     background-color: #fff;
     color: #000; }
+
+@media (max-width: 800px) {
+  .gridContainer {
+    grid-template-areas: "nav nav" "main aside" "header footer";
+    grid-template-columns: 0.5fr 0.5fr;
+    grid-template-rows: 0.3fr 1fr 0.3fr; }
+    .gridContainer nav {
+      background: white;
+      color: #000; }
+    .gridContainer header {
+      background-color: #6f6f6f;
+      color: white; }
+    .gridContainer main {
+      text-align: center; } }
+@media (max-width: 500px) {
+  .gridContainer {
+    grid-template-areas: "header" "main" "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.3fr 1fr 0.3fr; }
+    .gridContainer aside,
+    .gridContainer nav {
+      display: none; }
+    .gridContainer nav {
+      background: white;
+      color: #000; }
+    .gridContainer header {
+      background-color: #6f6f6f;
+      color: white; }
+    .gridContainer main {
+      text-align: center; } }
 
 /*# sourceMappingURL=index.css.map */

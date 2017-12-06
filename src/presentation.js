@@ -77,7 +77,7 @@ const gridBasicCss = `
 
 const uglyHtmlExample = `
 <div class="container">
-  <div class="row">
+  <div class="row"> // extra boilerplate
     <nav class="col-md-3">
       ...
     </nav>
@@ -87,7 +87,7 @@ const uglyHtmlExample = `
           ...
         </div>
       </header>
-      <div class="row">
+      <div class="row"> // extra boilerplate
         <main class="col-md-8">
           ...
         </main>
@@ -95,37 +95,7 @@ const uglyHtmlExample = `
           ...
         </aside>
       </div>
-      <div class="row">
-        <footer class="col-md-12">
-          ...
-        </footer>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-const uglyHtmlResponsiveExample = `
-<div class="container">
-  <div class="row">
-    <nav class="col-md-3 col-xs-12">
-      ...
-    </nav>
-    <div class="col-md-9 col-xs-12">
-      <div class="row">
-        <header class="col-md-12">
-          ...
-        </header>
-      </div>
-      <div class="row">
-        <main class="col-md-8 col-xs-12">
-          ...
-        </main>
-        <aside class="col-md-4 col-xs-12">
-          ...
-        </aside>
-      </div>
-      <div class="row">
+      <div class="row"> // extra boilerplate
         <footer class="col-md-12">
           ...
         </footer>
@@ -144,6 +114,37 @@ const cssGridMarkupExample = `
     <footer>...</footer>
 </section>
 `;
+
+const styleSheetExample = `
+.gridContainer {
+    display: grid;
+    width: 100%;
+    height: 500px;
+    grid-template-areas:
+            "nav header header"
+            "nav main aside"
+            "nav footer footer";
+    grid-template-rows: 0.3fr 1fr 0.3fr;
+    grid-template-columns: 0.3fr 1fr 0.3fr;
+
+    header { grid-area: header; }
+    footer { grid-area: footer; }
+    main   { grid-area: main; }
+    nav    { grid-area: nav; }
+    aside  { grid-area: aside; }
+    
+    // Presentational styles
+    nav,
+    aside { background: #6f6f6f; }
+    
+    main { background: #444; }
+
+    header,
+    footer {
+        background-color: #fff;
+        color: #000;
+    }
+}`;
 
 
 export default class extends Component {
@@ -216,9 +217,7 @@ export default class extends Component {
                     <section className="gridContainer">
                         <header>Header</header>
                         <nav>Nav</nav>
-                        <main>
-                            Main
-                        </main>
+                        <main>Main</main>
                         <aside>Aside</aside>
                         <footer>Footer</footer>
                     </section>
@@ -231,17 +230,29 @@ export default class extends Component {
                 </Slide>
                 <Slide>
                     <Heading size={1} fit lineHeight={1}>
-                        Don't forget about responsive...
-                    </Heading>
-                    <CodePane lang="html" source={uglyHtmlResponsiveExample} margin="64px 0 0"/>
-                </Slide>
-                <Slide>
-                    <Heading size={1} fit lineHeight={1}>
                         With CSS grid...
                     </Heading>
                     <Appear>
                         <CodePane lang="html" source={cssGridMarkupExample} margin="64px 0 0"/>
                     </Appear>
+                </Slide>
+                <Slide>
+                    <Heading size={4} textColor="tertiary" lineHeight={1}>
+                        Stylesheet
+                    </Heading>
+                    <CodePane lang="css" source={styleSheetExample} margin="64px 0 0"/>
+                </Slide>
+                <Slide>
+                    <Heading size={4} textColor="tertiary" lineHeight={1}>
+                        Responsive
+                    </Heading>
+                    <section className="gridContainer">
+                        <header>Header</header>
+                        <nav>Nav</nav>
+                        <main>Main</main>
+                        <aside>Aside</aside>
+                        <footer>Footer</footer>
+                    </section>
                 </Slide>
             </Deck>
         );
