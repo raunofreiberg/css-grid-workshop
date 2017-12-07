@@ -14,33 +14,6 @@ const theme = createTheme({
     secondary: {name: "Droid Serif", googleFont: true, styles: ["400", "700i"]}
 });
 
-
-const testingExample = `
-    const iterator = fetchProducts();
-    assert.deepEqual(iterator.next().value, ??)
-`;
-
-const testingResult = `
-{
-  CALL: {
-    fn: Resource.post,
-    args: [{example: 1}]
-  }
-}
-`;
-
-const testingPart2 = `
-import { call } from 'redux-saga/effects'
-import Resource from '...'
-const iterator = fetchProducts()
-// expects a call instruction
-assert.deepEqual(
-  iterator.next().value,
-  call(Resource.post, {example: 1}),
-  "fetchProducts should yield an Effect call(Resource.post, './products')"
-);
-`;
-
 const gridBasicHtml = `
 <section class="container">
   <header>Header</header>
@@ -78,7 +51,7 @@ const gridBasicCss = `
 const uglyHtmlExample = `
 <div class="container">
   <div class="row"> // extra boilerplate
-    <nav class="col-md-3">
+    <nav class="col-md-3 col-sm-12">
       ...
     </nav>
     <div class="col-md-9">
@@ -88,10 +61,10 @@ const uglyHtmlExample = `
         </div>
       </header>
       <div class="row"> // extra boilerplate
-        <main class="col-md-8">
+        <main class="col-md-8 col-sm-12">
           ...
         </main>
-        <aside class="col-md-4">
+        <aside class="col-md-4 col-sm-12">
           ...
         </aside>
       </div>
@@ -132,23 +105,47 @@ const styleSheetExample = `
     main   { grid-area: main; }
     nav    { grid-area: nav; }
     aside  { grid-area: aside; }
-    
-    // Presentational styles
-    nav,
-    aside { background: #6f6f6f; }
-    
-    main { background: #444; }
+}`;
 
-    header,
-    footer {
-        background-color: #fff;
-        color: #000;
+const responsiveMediumStyleSheetExample = `
+@media (max-width: 800px) {
+    .gridContainer {
+        grid-template-areas:
+                "nav nav"
+                "main aside"
+                "header footer";
+        grid-template-columns: 0.5fr 0.5fr;
+        grid-template-rows: 0.3fr 1fr 0.3fr;
     }
 }`;
+
+const responsiveSmallStyleSheetExample = `
+@media (max-width: 500px) {
+    .gridContainer {
+        grid-template-areas:
+                "header"
+                "main"
+                "footer";
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.3fr 1fr 0.3fr;
+
+        aside,
+        nav {
+            display: none;
+        }    
+    }
+}
+`;
 
 
 export default class extends Component {
     render() {
+        const linkStyles = {
+            fontWeight: 'bold',
+            color: theme.screen.colors.tertiary,
+            textDecoration: 'underline'
+        };
+
         return (
             <Deck theme={theme} transition={["slide", "fade"]}>
                 <Slide>
@@ -159,6 +156,43 @@ export default class extends Component {
                         Grid
                     </Heading>
                     <Text size={6} textColor="secondary" padding="32px 0 0">Rauno Freiberg</Text>
+                    <Link
+                        href="https://github.com/raunofreiberg/css-grid-workshop"
+                        textColor="secondary"
+                        target="_blank"
+                        style={{
+                            display: 'inline-block',
+                            padding: '32px 0 0'
+                        }}
+                    >
+                        Full code available at&#160;
+                        <span style={linkStyles}>Github</span>
+                    </Link>
+                </Slide>
+                <Slide>
+                    <Heading size={1} lineHeight={1} textColor="tertiary">
+                        Preface
+                    </Heading>
+                    <Text size={6} textColor="secondary" padding="32px 0 0">
+                        CSS has gone through multiple hacks in terms of what to use for layouts. We have had:
+                    </Text>
+                    <List>
+                        <Appear>
+                            <ListItem>Tables</ListItem>
+                        </Appear>
+                        <Appear>
+                            <ListItem>Floats</ListItem>
+                        </Appear>
+                        <Appear>
+                            <ListItem>Position</ListItem>
+                        </Appear>
+                        <Appear>
+                            <ListItem>Finally, we got something proper - flex</ListItem>
+                        </Appear>
+                        <Appear>
+                            <ListItem>Now, we have CSS grid</ListItem>
+                        </Appear>
+                    </List>
                 </Slide>
                 <Slide>
                     <Heading size={1} lineHeight={1} textColor="tertiary">
@@ -175,28 +209,6 @@ export default class extends Component {
                     <Heading size={1} lineHeight={1} textColor="tertiary">
                         Why?
                     </Heading>
-                    <Text size={6} textColor="secondary" padding="32px 0 0">
-                        CSS has gone through multiple hacks in terms of what to use for layouts. We have had:
-                    </Text>
-                    <List>
-                        <Appear>
-                            <ListItem>Tables</ListItem>
-                        </Appear>
-                        <Appear>
-                            <ListItem>Floats</ListItem>
-                        </Appear>
-                        <Appear>
-                            <ListItem>Position</ListItem>
-                        </Appear>
-                        <Appear>
-                            <ListItem>Finally, we got flex</ListItem>
-                        </Appear>
-                        <Appear>
-                            <ListItem>Now, we have CSS grid</ListItem>
-                        </Appear>
-                    </List>
-                </Slide>
-                <Slide>
                     <List>
                         <ListItem>No hacks (floats, clearfixes)</ListItem>
                         <Appear><ListItem>Cleaner markup</ListItem></Appear>
@@ -238,9 +250,27 @@ export default class extends Component {
                 </Slide>
                 <Slide>
                     <Heading size={4} textColor="tertiary" lineHeight={1}>
-                        Stylesheet
+                        Styles
                     </Heading>
-                    <CodePane lang="css" source={styleSheetExample} margin="64px 0 0"/>
+                    <CodePane lang="scss" source={styleSheetExample} margin="64px 0 0" />
+                </Slide>
+                <Slide>
+                    <Heading size={4} textColor="tertiary" lineHeight={1} margin="0 0 64px 0">
+                        The magic
+                    </Heading>
+                    <List>
+                        <ListItem style={{fontSize: '2rem', lineHeight: 2}}>
+                            <span style={{color: "#00E5BC"}}>grid-template-rows</span> - Adjust the sizings of rows
+                        </ListItem>
+                        <ListItem style={{fontSize: '2rem', lineHeight: 2}}>
+                            <span style={{color: "#00E5BC"}}>grid-template-columns</span> - Adjust the sizings of
+                            columns
+                        </ListItem>
+                        <ListItem style={{fontSize: '2rem', lineHeight: 2}}>
+                            <span style={{color: "#00E5BC"}}>grid-template-areas</span> - A row is created for every
+                            separate string listed, and a column is created for each cell in the string.
+                        </ListItem>
+                    </List>
                 </Slide>
                 <Slide>
                     <Heading size={4} textColor="tertiary" lineHeight={1}>
@@ -253,6 +283,13 @@ export default class extends Component {
                         <aside>Aside</aside>
                         <footer>Footer</footer>
                     </section>
+                </Slide>
+                <Slide>
+                    <Heading size={4} textColor="tertiary" lineHeight={1}>
+                        Breakpoints styles
+                    </Heading>
+                    <CodePane lang="scss" source={responsiveMediumStyleSheetExample} margin="64px 0 0"/>
+                    <CodePane lang="scss" source={responsiveSmallStyleSheetExample} margin="64px 0 0"/>
                 </Slide>
             </Deck>
         );
