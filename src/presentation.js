@@ -5,6 +5,8 @@ import {
 } from 'spectacle';
 import createTheme from "spectacle/lib/themes/default";
 
+import Bg from './bg.jpeg';
+
 const theme = createTheme({
     primary: "#161f3c;",
     secondary: "#fff",
@@ -147,8 +149,8 @@ export default class extends Component {
         };
 
         return (
-            <Deck theme={theme} transition={["slide", "fade"]}>
-                <Slide>
+            <Deck theme={theme} transition={["slide", "fade"]} progress="none">
+                <Slide bgImage={Bg} bgDarken="0.85">
                     <Heading size={1} textColor="secondary" style={{ fontWeight: 300 }}>
                         <span style={{ color: "#00E5BC", paddingRight: '26px', fontWeight: 'bold' }}>
                             CSS
@@ -270,6 +272,10 @@ export default class extends Component {
                             <span style={{color: "#00E5BC"}}>grid-template-areas</span> - A row is created for every
                             separate string listed, and a column is created for each cell in the string.
                         </ListItem>
+                        <ListItem style={{fontSize: '2rem', lineHeight: 2}}>
+                            <span style={{color: "#00E5BC"}}>grid-area</span> - Gives a tag a name so that it can be
+                            referenced in grid-template-areas.
+                        </ListItem>
                     </List>
                 </Slide>
                 <Slide>
@@ -286,10 +292,28 @@ export default class extends Component {
                 </Slide>
                 <Slide>
                     <Heading size={4} textColor="tertiary" lineHeight={1}>
-                        Breakpoints styles
+                        Responsive styles
                     </Heading>
                     <CodePane lang="scss" source={responsiveMediumStyleSheetExample} margin="64px 0 0"/>
                     <CodePane lang="scss" source={responsiveSmallStyleSheetExample} margin="64px 0 0"/>
+                </Slide>
+                <Slide bgImage={Bg} bgDarken="0.85">
+                    <Heading size={4} textColor="tertiary" lineHeight={1}>
+                        Thanks!
+                    </Heading>
+                    <Link
+                        href="https://github.com/raunofreiberg/css-grid-workshop"
+                        textColor="secondary"
+                        target="_blank"
+                        style={{
+                            display: 'inline-block',
+                            padding: '32px 0 0'
+                        }}
+                    >
+                        Full code available at&#160;
+                        <span style={linkStyles}>Github</span>
+                    </Link>
+                    <Text size={6} textColor="secondary" padding="32px 0 0">Rauno Freiberg</Text>
                 </Slide>
             </Deck>
         );
