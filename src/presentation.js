@@ -8,7 +8,7 @@ import createTheme from "spectacle/lib/themes/default";
 import Bg from './images/bg.jpeg';
 
 const theme = createTheme({
-    primary: "#161f3c;",
+    primary: "#161f3c",
     secondary: "#fff",
     tertiary: "#00E5BC",
 }, {
@@ -60,12 +60,12 @@ const styleSheetExample = `
     display: grid;
     width: 100%;
     height: 500px;
+    grid-template-rows: 0.3fr 1fr 0.3fr;
+    grid-template-columns: 0.3fr 1fr 0.3fr;
     grid-template-areas:
             "nav header header"
             "nav main aside"
             "nav footer footer";
-    grid-template-rows: 0.3fr 1fr 0.3fr;
-    grid-template-columns: 0.3fr 1fr 0.3fr;
 
     header { grid-area: header; }
     footer { grid-area: footer; }
@@ -77,24 +77,23 @@ const styleSheetExample = `
 const responsiveMediumStyleSheetExample = `
 @media (max-width: 800px) {
     .gridContainer {
+        grid-template-rows: 0.3fr 1fr 0.3fr;
+        grid-template-columns: 0.5fr 0.5fr;
         grid-template-areas:
                 "nav nav"
                 "main aside"
                 "header footer";
-        grid-template-columns: 0.5fr 0.5fr;
-        grid-template-rows: 0.3fr 1fr 0.3fr;
     }
 }`;
 
 const responsiveSmallStyleSheetExample = `
 @media (max-width: 500px) {
     .gridContainer {
+        grid-template-columns: 1fr;
         grid-template-areas:
                 "header"
                 "main"
                 "footer";
-        grid-template-columns: 1fr;
-        grid-template-rows: 0.3fr 1fr 0.3fr;
 
         aside,
         nav {
@@ -176,7 +175,7 @@ const Presentation = () => {
                 </Heading>
                 <List>
                     <ListItem>No hacks (floats, clearfixes)</ListItem>
-                    <Appear><ListItem>Cleaner markup</ListItem></Appear>
+                    <Appear><ListItem>Semantical and cleaner markup</ListItem></Appear>
                     <Appear><ListItem>Multidimensional unlike flexbox</ListItem></Appear>
                     <Appear><ListItem>Responsive design</ListItem></Appear>
                     <Appear><ListItem>Enables you to create complex layout structures</ListItem></Appear>
@@ -245,6 +244,7 @@ const Presentation = () => {
                 <Heading size={4} textColor="tertiary" lineHeight={1}>
                     Responsive
                 </Heading>
+                <Text size={6} textColor="secondary">(resize the window)</Text>
                 <section className="gridContainer">
                     <header>Header</header>
                     <nav>Nav</nav>
