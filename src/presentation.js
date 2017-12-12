@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {
     Appear, CodePane, Deck,
-    Heading, ListItem, List, Slide, Text, Link
+    Heading, ListItem, List, Slide, Text, Link, Code, Image
 } from 'spectacle';
 import createTheme from "spectacle/lib/themes/default";
 
 import Bg from './images/bg.jpeg';
+import GridExample from './images/gridexample.png';
 
 const theme = createTheme({
     primary: "#161f3c",
@@ -56,23 +57,26 @@ const cssGridMarkupExample = `
 `;
 
 const styleSheetExample = `
-.gridContainer {
-    display: grid;
-    width: 100%;
-    height: 500px;
-    grid-template-rows: 0.3fr 1fr 0.3fr;
-    grid-template-columns: 0.3fr 1fr 0.3fr;
-    grid-template-areas:
-            "nav header header"
-            "nav main aside"
-            "nav footer footer";
-
-    header { grid-area: header; }
-    footer { grid-area: footer; }
-    main   { grid-area: main; }
-    nav    { grid-area: nav; }
-    aside  { grid-area: aside; }
-}`;
+@supports (display: grid) {
+    .gridContainer {
+        display: grid;
+        width: 100%;
+        height: 500px;
+        grid-template-rows: 0.3fr 1fr 0.3fr;
+        grid-template-columns: 0.3fr 1fr 0.3fr;
+        grid-template-areas:
+                "nav header header"
+                "nav main aside"
+                "nav footer footer";
+    
+        header { grid-area: header; }
+        footer { grid-area: footer; }
+        main   { grid-area: main; }
+        nav    { grid-area: nav; }
+        aside  { grid-area: aside; }
+    }
+}
+`;
 
 const responsiveMediumStyleSheetExample = `
 @media (max-width: 800px) {
@@ -101,6 +105,36 @@ const responsiveSmallStyleSheetExample = `
         }    
     }
 }
+`;
+
+const gridTemplateRows = `
+    grid-template-rows: 100px 100px 100px;
+    grid-template-columns: 100px 100px 100px;
+    
+    // shorthand
+    
+    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: repeat(3, 100px);
+`;
+
+
+const gridTemplateRowsFr = `
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+`;
+
+const gridPositioning = `
+.blueBox {
+    grid-row: 3 / 4;
+    grid-column: 1 / 2;
+}
+`;
+
+const gridTemplateAreas = `
+    grid-template-areas:
+            "redBox greenBox blueBox"
+            "redBox greenBox blueBox"
+            "redBox greenBox blueBox"
 `;
 
 const Presentation = () => {
@@ -187,6 +221,71 @@ const Presentation = () => {
                 </Heading>
             </Slide>
             <Slide>
+                <Heading size={4} textColor="tertiary" lineHeight={1} margin="0 0 64px 0">
+                    display: grid
+                </Heading>
+                <Text textColor="secondary">
+                    Defines a grid container where all direct ascendants are automatically grid items.
+                </Text>
+            </Slide>
+            <Slide>
+                <Heading size={4} textColor="tertiary" lineHeight={1}>
+                    grid-template-rows
+                </Heading>
+                <Heading size={4} textColor="tertiary" lineHeight={1}>
+                     grid-template-columns
+                </Heading>
+                <Text textColor="secondary" margin="64px 0 0 ">
+                    Creates grid rows or columns with each one being the specified value.
+                    You can use anything (%, vw, vh, px etc).
+                </Text>
+                <CodePane lang="scss" source={gridTemplateRows} margin="64px 0 0"/>
+            </Slide>
+            <Slide>
+                <Heading size={4} textColor="tertiary" lineHeight={1} margin="0 0 64px 0">
+                    Fraction
+                </Heading>
+                <Text textColor="secondary">
+                    Fraction is a new CSS unit and takes up a single fraction of the available space.
+                </Text>
+                <CodePane lang="scss" source={gridTemplateRowsFr} margin="64px 0 0"/>
+            </Slide>
+            <Slide>
+                <Image src={GridExample} />
+            </Slide>
+            <Slide>
+                <Heading size={4} textColor="tertiary" lineHeight={1} margin="0 0 64px 0">
+                    So, how do we position the grid items?
+                </Heading>
+                <Appear>
+                    <CodePane lang="scss" source={gridPositioning} />
+                </Appear>
+            </Slide>
+            <Slide>
+                <div className="exampleGrid">
+                    <div />
+                    <div className="blueBox" />
+                    <div />
+                </div>
+            </Slide>
+            <Slide>
+                <Heading size={4} textColor="tertiary" lineHeight={1} margin="0 0 64px 0">
+                    Tracking all the grid lines gets quite insane
+                </Heading>
+            </Slide>
+            <Slide>
+                <Heading size={4} textColor="tertiary" lineHeight={1} margin="0 0 64px 0">
+                    The magic: grid-template-areas
+                </Heading>
+                <Text textColor="secondary">
+                    Each separate string <span style={{color: "#00E5BC"}}>row</span> listed represents a CSS grid row.
+                </Text>
+                <Text textColor="secondary">
+                    Each separate string <span style={{color: "#00E5BC"}}>column</span> listed represents a CSS grid column.
+                </Text>
+                <CodePane lang="scss" source={gridTemplateAreas} margin="64px 0 0" />
+            </Slide>
+            <Slide>
                 <Heading size={1} fit lineHeight={1}>
                     Think for a moment - how would you create this layout?
                 </Heading>
@@ -217,28 +316,6 @@ const Presentation = () => {
                     Styles
                 </Heading>
                 <CodePane lang="scss" source={styleSheetExample} margin="64px 0 0" />
-            </Slide>
-            <Slide>
-                <Heading size={4} textColor="tertiary" lineHeight={1} margin="0 0 64px 0">
-                    The magic
-                </Heading>
-                <List>
-                    <ListItem style={{fontSize: '2rem', lineHeight: 2}}>
-                        <span style={{color: "#00E5BC"}}>grid-template-rows</span> - Adjust the sizings of rows
-                    </ListItem>
-                    <ListItem style={{fontSize: '2rem', lineHeight: 2}}>
-                        <span style={{color: "#00E5BC"}}>grid-template-columns</span> - Adjust the sizings of
-                        columns
-                    </ListItem>
-                    <ListItem style={{fontSize: '2rem', lineHeight: 2}}>
-                        <span style={{color: "#00E5BC"}}>grid-template-areas</span> - A row is created for every
-                        separate string listed, and a column is created for each cell in the string.
-                    </ListItem>
-                    <ListItem style={{fontSize: '2rem', lineHeight: 2}}>
-                        <span style={{color: "#00E5BC"}}>grid-area</span> - Gives a tag a name so that it can be
-                        referenced in grid-template-areas.
-                    </ListItem>
-                </List>
             </Slide>
             <Slide>
                 <Heading size={4} textColor="tertiary" lineHeight={1}>

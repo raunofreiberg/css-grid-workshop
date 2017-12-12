@@ -1,3 +1,22 @@
+.exampleGrid {
+  display: grid;
+  width: 100%;
+  height: 700px;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  border: 1px solid white; }
+  .exampleGrid > div {
+    background: #ff3f3f;
+    width: 100%;
+    height: 100%; }
+    .exampleGrid > div.blueBox {
+      grid-row: 3 / 4;
+      grid-column: 1 / 2;
+      background: #4b4bf3; }
+    .exampleGrid > div:last-of-type {
+      background: #67fd7d; }
+
 .gridContainer {
   margin-top: 64px;
   display: grid;
