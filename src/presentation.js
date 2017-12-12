@@ -345,6 +345,25 @@ const Presentation = () => {
                 <CodePane lang="scss" source={responsiveMediumStyleSheetExample} margin="64px 0 0" />
                 <CodePane lang="scss" source={responsiveSmallStyleSheetExample} margin="64px 0 0" />
             </Slide>
+            <Slide>
+                <Heading size={4} textColor="tertiary" lineHeight={1}>
+                    Conclusion
+                </Heading>
+                <List>
+                    <Appear><ListItem>CSS grid finally solves the conundrum of layouts</ListItem></Appear>
+                    <Appear><ListItem>Once mastered, can become really powerful and simple to use</ListItem></Appear>
+                    <Appear><ListItem>Provide fallbacks if necessary</ListItem></Appear>
+                </List>
+                <Appear>
+                    <Heading size={4} textColor="tertiary" lineHeight={1}>
+                        ...and let's make the web great again*
+                    </Heading>
+                </Appear>
+                <Appear>
+                    <Text size={6} textColor="secondary" padding="32px 0 0">* implying that it ever was</Text>
+
+                </Appear>
+            </Slide>
             <Slide bgImage={Bg} bgDarken="0.85">
                 <Heading size={4} textColor="tertiary" lineHeight={1}>
                     Thanks!
