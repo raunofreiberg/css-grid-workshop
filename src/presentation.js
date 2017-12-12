@@ -277,13 +277,21 @@ const Presentation = () => {
                 <Heading size={4} textColor="tertiary" lineHeight={1} margin="0 0 64px 0">
                     The magic: grid-template-areas
                 </Heading>
-                <Text textColor="secondary">
-                    Each separate string <span style={{color: "#00E5BC"}}>row</span> listed represents a CSS grid row.
-                </Text>
-                <Text textColor="secondary">
-                    Each separate string <span style={{color: "#00E5BC"}}>column</span> listed represents a CSS grid column.
-                </Text>
-                <CodePane lang="scss" source={gridTemplateAreas} margin="64px 0 0" />
+                <Appear>
+                    <Text textColor="secondary">
+                        Each separate string <span style={{color: "#00E5BC"}}>row</span> listed represents a CSS grid
+                        row.
+                    </Text>
+                </Appear>
+                <Appear>
+                    <Text textColor="secondary">
+                        Each separate string <span style={{color: "#00E5BC"}}>column</span> listed represents a CSS grid
+                        column.
+                    </Text>
+                </Appear>
+                <Appear>
+                    <CodePane lang="scss" source={gridTemplateAreas} margin="64px 0 0" />
+                </Appear>
             </Slide>
             <Slide>
                 <Heading size={1} fit lineHeight={1}>
